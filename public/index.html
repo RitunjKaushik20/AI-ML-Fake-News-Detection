@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="icon">🔍</span>
+                    Fake News Detection System
+                </h1>
+                <p class="subtitle">AI-powered analysis to identify potentially fake news</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-tabs">
+                    <button class="tab-btn active" data-tab="text">Text Input</button>
+                    <!-- <button class="tab-btn" data-tab="url">URL Input</button> -->
+                </div>
+
+                <!-- Text Input Tab -->
+                <div class="tab-content active" id="text-tab">
+                    <div class="input-group">
+                        <label for="news-text">Paste News Headline or Full News:</label>
+                        <textarea 
+                            id="news-text" 
+                            placeholder="Paste the news headline or article text here..."
+                            rows="6"
+                            maxlength="5000"
+                        ></textarea>
+                        <div class="char-count">
+                            <span id="char-count">0</span> / 5000 characters
+                        </div>
+                    </div>
+                </div>
+
+                <!-- URL Input Tab -->
+                <div class="tab-content" id="url-tab">
+                    <div class="input-group">
+                        <label for="news-url">Enter News URL:</label>
+                        <input 
+                            type="url" 
+                            id="news-url" 
+                            placeholder="https://example.com/news-article"
+                        />
+                        <p class="note">
+                            <strong>Note:</strong> URL analysis is not implemented in this demo. 
+                            Please copy and paste the text content directly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <button class="analyze-btn" id="analyze-btn">
+                    <span class="btn-text">Analyze News</span>
+                    <span class="btn-loader" style="display: none;">Analyzing...</span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results" style="display: none;">
+                <h2 class="results-title">Analysis Results</h2>
+                
+                <div class="result-card" id="result-card">
+                    <div class="result-header">
+                        <div class="prediction-badge" id="prediction-badge">
+                            <span class="prediction-icon" id="prediction-icon"></span>
+                            <span class="prediction-text" id="prediction-text"></span>
+                        </div>
+                        <div class="confidence-score">
+                            <span class="confidence-label">Confidence:</span>
+                            <span class="confidence-value" id="confidence-value"></span>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <div class="probabilities">
+                            <div class="prob-item">
+                                <span class="prob-label">Real News:</span>
+                                <div class="prob-bar">
+                                    <div class="prob-fill real" id="real-prob"></div>
+                                </div>
+                                <span class="prob-value" id="real-value">0%</span>
+                            </div>
+                            <div class="prob-item">
+                                <span class="prob-label">Fake News:</span>
+                                <div class="prob-bar">
+                                    <div class="prob-fill fake" id="fake-prob"></div>
+                                </div>
+                                <span class="prob-value" id="fake-value">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="analysis-info">
+                            <h3>Analysis Details</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Input Length:</span>
+                                    <span class="info-value" id="input-length">0 characters</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Words Processed:</span>
+                                    <span class="info-value" id="words-processed">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Processing Time:</span>
+                                    <span class="info-value" id="processing-time">0ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="result-actions">
+                    <button class="secondary-btn" id="new-analysis-btn">New Analysis</button>
+                    <button class="secondary-btn" id="share-results-btn">Share Results</button>
+                </div>
+            </section>
+
+            <!-- Model Info Section -->
+            <section class="model-section">
+                <h2 class="section-title">About This System</h2>
+                <div class="model-info-card">
+                    <div class="info-item">
+                        <span class="info-label">Model Type:</span>
+                        <span class="info-value" id="model-type">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Vocabulary Size:</span>
+                        <span class="info-value" id="vocab-size">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" id="model-status">Loading...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disclaimer Section -->
+            <section class="disclaimer-section">
+                <div class="disclaimer-card">
+                    <h3>⚠️ Important Disclaimer</h3>
+                    <p>
+                        This system uses basic Natural Language Processing and Machine Learning techniques 
+                        to analyze text patterns. It is <strong>not foolproof</strong> and should not be used 
+                        as the sole basis for determining the authenticity of news.
+                    </p>
+                    <p>
+                        The system predicts based on language patterns learned from training data and may 
+                        produce false positives or false negatives. Always verify information from multiple 
+                        reliable sources before making decisions.
+                    </p>
+                    <p>
+                        <strong>Limitations:</strong> This is an academic project using basic algorithms. 
+                        Real-world fake news detection requires sophisticated techniques, human fact-checkers, 
+                        and cross-referencing with trusted sources.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Fake News Detection System - Academic Project</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-message" id="toast-message"></span>
+        <button class="toast-close" id="toast-close">&times;</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

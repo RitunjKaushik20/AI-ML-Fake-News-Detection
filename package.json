@@ -1,0 +1,25 @@
+{
+  "name": "fake-news-detection",
+  "version": "1.0.0",
+  "description": "A basic fake news detection web application using Node.js, NLP, and Machine Learning",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "train": "node src/train.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": ["fake-news", "nlp", "machine-learning", "nodejs"],
+  "author": "Academic Project",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "natural": "^6.5.0",
+    "ml-regression": "^5.0.0",
+    "csv-parser": "^3.0.0",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
