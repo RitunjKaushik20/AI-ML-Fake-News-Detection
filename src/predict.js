@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const natural = require('natural');
 
 // Simple Logistic Regression implementation
@@ -63,7 +64,7 @@ class FakeNewsPredictor {
     }
 
     // Load trained model from file
-    loadModel(modelPath = './model/model.json') {
+    loadModel(modelPath = path.join(__dirname, '../model/model.json')) {
         try {
             if (!fs.existsSync(modelPath)) {
                 throw new Error(`Model file not found: ${modelPath}`);
